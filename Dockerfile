@@ -22,7 +22,7 @@ RUN apk add --no-cache --virtual .gyp \
     && apk add --no-cache git \
     && pnpm install && pnpm run build \
     && apk del .gyp
-RUN npm install puppeteer@10.0.0
+RUN npm install puppeteer@22.8.0
 FROM node:21-alpine3.18 as deploy
 
 WORKDIR /app
@@ -40,7 +40,7 @@ ENV PNPM_HOME=/usr/local/bin
 RUN npm cache clean --force && pnpm install --production --ignore-scripts \
     && addgroup -g 1001 -S nodejs && adduser -S -u 1001 nodejs \
     && rm -rf $PNPM_HOME/.npm $PNPM_HOME/.node-gyp
-RUN npm install puppeteer@10.0.0
+RUN npm install puppeteer@22.8.0
 RUN apk add chromium \
     nss \
     freetype \
